@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>اختبار اللغة العربية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8e44ad;
+            --secondary-color: #3498db;
+            --background-color: #f9f4fb;
+            --container-bg: #ffffff;
+            --text-color: #2c3e50;
+            --border-color: #e0e0e0;
+            --error-color: #e74c3c;
+            --success-color: #27ae60;
+            --hover-light: #f5eef8;
+            --arabic-pattern: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%238e44ad" fill-opacity="0.05" d="M50 0c13.8 0 25 11.2 25 25S63.8 50 50 50 25 38.8 25 25 36.2 0 50 0zm0 10c-8.3 0-15 6.7-15 15s6.7 15 15 15 15-6.7 15-15-6.7-15-15-15zm0 25c5.5 0 10 4.5 10 10s-4.5 10-10 10-10-4.5-10-10 4.5-10 10-10z"/></svg>');
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Tajawal', Arial, sans-serif;
+            max-width: 100%;
+            margin: 0;
+            padding: 15px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            -webkit-text-size-adjust: 100%;
+            background-image: var(--arabic-pattern);
+            background-attachment: fixed;
+            line-height: 1.8;
+        }
+        
+        .section {
+            background-color: var(--container-bg);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            display: none;
+            width: 100%;
+            overflow-x: hidden;
+            animation: fadeIn 0.5s ease-in-out;
+            position: relative;
+            border: 1px solid rgba(142, 68, 173, 0.2);
+        }
+
+        .section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #8e44ad, #3498db);
+            border-radius: 15px 15px 0 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        h1, h2, h3, h4 {
+            color: #2c3e50;
+            text-align: center;
+            font-family: 'Tajawal', sans-serif;
+            margin-bottom: 15px;
+        }
+
+        h1 { 
+            font-size: 32px; 
+            color: #8e44ad;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #8e44ad, #3498db);
+            border-radius: 3px;
+        }
+
+        h2 { 
+            font-size: 24px; 
+            color: #3498db;
+        }
+
+        h3 { font-size: 20px; }
+        h4 { font-size: 18px; }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        button {
+            background: linear-gradient(45deg, #8e44ad, #9b59b6);
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(142, 68, 173, 0.3);
+            margin: 12px 0;
+            width: 100%;
+            touch-action: manipulation;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.3));
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(142, 68, 173, 0.4);
+        }
+
+        button:hover::after {
+            transform: translateX(0);
+        }
+
+        button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            opacity: 0.7;
+        }
+
+        button i {
+            margin-left: 8px;
+        }
+
+        input[type="text"], textarea {
+            padding: 14px;
+            width: 100%;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background-color: #fcfaff;
+            text-align: right;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.2);
+            outline: none;
+        }
+
+        .question {
+            background-color: #fcfaff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-right: 4px solid var(--primary-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .question h4 {
+            font-family: 'Tajawal', sans-serif;
+            color: #8e44ad;
+            margin-bottom: 15px;
+            text-align: right;
+            position: relative;
+            padding-right: 15px;
+        }
+
+        .question h4::before {
+            content: "؟";
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 24px;
+            color: #3498db;
+        }
+
+        .options label {
+            display: block;
+            margin: 12px 0;
+            padding: 14px;
+            cursor: pointer;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            font-family: 'Tajawal', sans-serif;
+            text-align: right;
+            background-color: white;
+            position: relative;
+            padding-right: 45px;
+        }
+
+        .options label:hover {
+            background-color: var(--hover-light);
+            border-color: var(--primary-color);
+            transform: translateX(-5px);
+        }
+        
+        .options input[type="radio"]:checked + span {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .options input[type="radio"] {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+        }
+
+        .options label::after {
+            content: "";
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .options input[type="radio"]:checked ~ span::before {
+            content: "";
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        .progress {
+            margin-bottom: 20px;
+            height: 12px;
+            background-color: #ecf0f1;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            width: 0%;
+            transition: width 0.4s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, 
+                            rgba(255,255,255,0.1) 0%, 
+                            rgba(255,255,255,0.3) 50%, 
+                            rgba(255,255,255,0.1) 100%);
+            animation: progressShine 2s infinite linear;
+        }
+
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .tracking {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .result-score {
+            font-size: 56px;
+            font-weight: bold;
+            color: var(--success-color);
+            text-align: center;
+            margin: 20px 0;
+            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            text-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .result-score::after {
+            content: "٪";
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .summary-item, .correction-item {
+            background-color: #f8f9fa;
+            padding: 16px;
+            margin: 12px 0;
+            border-radius: 10px;
+            border-right: 4px solid var(--primary-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .correction-item { 
+            border-right-color: var(--error-color); 
+            background-color: #fff9f9;
+        }
+        
+        .correction-item .user-answer { 
+            color: var(--error-color); 
+            text-decoration: line-through;
+            font-weight: bold;
+        }
+        
+        .correction-item .correct-answer { 
+            color: var(--success-color); 
+            font-weight: bold;
+        }
+        
+        .correction-item p { 
+            margin: 8px 0; 
+            font-family: 'Tajawal', sans-serif; 
+            text-align: right; 
+            font-size: 16px; 
+        }
+        
+        .correction-item .explanation { 
+            color: #7f8c8d; 
+            font-style: italic;
+            padding-right: 15px;
+            border-right: 2px solid #eee;
+            margin-right: 10px;
+        }
+        
+        .correction-item .icon { 
+            margin-left: 8px;
+            font-size: 18px;
+        }
+
+        .arabic-decoration {
+            text-align: center;
+            margin: 20px 0;
+            color: #8e44ad;
+            font-size: 24px;
+            line-height: 1.5;
+        }
+
+        .fixed-message {
+            background: linear-gradient(45deg, #8e44ad, #3498db);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* شاشة التحميل */
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 30px auto;
+            position: relative;
+        }
+
+        .loader::after {
+            content: "";
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            bottom: -6px;
+            left: -6px;
+            border: 6px solid transparent;
+            border-top: 6px solid var(--secondary-color);
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #loading-section div { 
+            text-align: center; 
+        }
+
+        #loading-section p {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        /* مربع الملاحظات */
+        #feedback-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        
+        #feedback-modal.active { 
+            display: flex; 
+            animation: fadeIn 0.3s;
+        }
+        
+        .feedback-box {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            animation: fadeInUp 0.4s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            border: 1px solid rgba(142, 68, 173, 0.3);
+        }
+
+        .feedback-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #8e44ad, #3498db);
+            border-radius: 15px 15px 0 0;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .feedback-box h3 { 
+            margin-top: 0; 
+            color: #8e44ad;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+        
+        .feedback-box p {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .section { padding: 18px; }
+            h1 { font-size: 26px; }
+            h2 { font-size: 22px; }
+            button { padding: 12px 18px; font-size: 16px; }
+            .result-score { font-size: 48px; }
+            .question { padding: 15px; }
+            .options label { padding: 12px; }
+        }
+
+        /* زخارف عربية */
+        .arabic-pattern {
+            position: absolute;
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        .pattern-1 {
+            top: 20px;
+            left: 20px;
+            font-size: 120px;
+            transform: rotate(15deg);
+            color: #8e44ad;
+        }
+
+        .pattern-2 {
+            bottom: 20px;
+            right: 20px;
+            font-size: 100px;
+            transform: rotate(-10deg);
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <!-- زخارف عربية -->
+    <div class="arabic-pattern pattern-1">&#xFD3F;</div>
+    <div class="arabic-pattern pattern-2">&#xFD3E;</div>
+
+    <!-- قسم الترحيب -->
+    <div id="welcome-section" class="section active">
+        <h1>اختبار اللغة العربية</h1>
+        <div class="arabic-decoration">بِسْمِ اللَّـهِ الرَّحْمَـٰنِ الرَّحِيمِ</div>
+        <p>مرحباً بك في اختبار اللغة العربية، هذا الاختبار صمم لقياس مدى إتقانك لقواعد اللغة العربية وفهمك للنصوص الأدبية.</p>
+        <input type="text" id="student-name" placeholder="الاسم الكامل">
+        <button id="start-test">
+            بدء الاختبار
+            <i class="fas fa-book-open"></i>
+        </button>
+        <div class="fixed-message">
+            <i class="fas fa-bullhorn"></i> انضم إلى قناة التلغرام للحصول على النتائج: t.me/bakalorea2026
+        </div>
+    </div>
+
+    <!-- قسم التحميل -->
+    <div id="loading-section" class="section">
+        <div>
+            <div class="loader"></div>
+            <h2>جاري تحضير أسئلة الاختبار...</h2>
+            <p>لحظات من فضلك، نقوم بإعداد اختبار مخصص لك</p>
+        </div>
+    </div>
+
+    <!-- قسم الخطأ -->
+    <div id="error-section" class="section">
+        <div class="error">
+            <h2>حدث خطأ</h2>
+            <p id="error-message"></p>
+            <button id="retry-loading">
+                إعادة المحاولة
+                <i class="fas fa-redo"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- قسم النص والأسئلة -->
+    <div id="text-section" class="section">
+        <div class="progress">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="tracking" id="tracking">
+            السؤال <span id="current-question">1</span> من <span id="total-questions">20</span>
+        </div>
+        <div id="text-content" class="text-content"></div>
+        <div id="text-questions-container"></div>
+        <button id="next-text-question" disabled>
+            التالي
+            <i class="fas fa-arrow-left"></i>
+        </button>
+    </div>
+
+    <!-- قسم النتائج -->
+    <div id="results-section" class="section">
+        <h1>النتيجة النهائية</h1>
+        <p id="student-result"></p>
+        <div class="result-score" id="score-percentage"></div>
+        <div id="score-display"></div>
+        <div id="corrections-container"></div>
+        <button id="restart-test">
+            إعادة الاختبار
+            <i class="fas fa-sync-alt"></i>
+        </button>
+    </div>
+
+    <!-- مربع الملاحظات -->
+    <div id="feedback-modal">
+        <div class="feedback-box">
+            <h3>ملاحظات حول الاختبار</h3>
+            <p>إذا كانت لديك أي ملاحظات حول الأسئلة أو الاختبار بشكل عام، يرجى كتابتها هنا. كما يمكنكم الانضمام إلى قناة التلغرام لمشاهدة تصحيح الأخطاء: t.me/bakalorea2026</p>
+            <textarea id="feedback-text" rows="5" placeholder="اكتب ملاحظاتك هنا (اختياري)"></textarea>
+            <div class="button-group">
+                <button id="submit-feedback">
+                    مشاهدة النتيجة
+                    <i class="fas fa-check"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // المتغيرات العامة
+        let studentName = '';
+        let userFeedback = '';
+        let answers = {};
+        let textData = [];
+        let selectedText = null;
+        let selectedQuestions = [];
+        let currentQuestionIndex = 0;
+        let wrongAnswers = [];
+        let totalQuestions = 20;
+
+        // إعدادات جوجل شيتس
+        const SHEET_ID = '1QeDqPQTvpmYcnngNIa3dj29gw48pzVo5SkjNmNCf7j0';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx4OMuXY20CN4pmsQcAFbGQYM_FD9mu5ej9mEY5GhPEArNmpM_ba-oQMCd2EAoy55sGBQ/exec';
+
+        // عناصر DOM
+        const welcomeSection = document.getElementById('welcome-section');
+        const loadingSection = document.getElementById('loading-section');
+        const errorSection = document.getElementById('error-section');
+        const textSection = document.getElementById('text-section');
+        const resultsSection = document.getElementById('results-section');
+        const startTestBtn = document.getElementById('start-test');
+        const nextTextQuestionBtn = document.getElementById('next-text-question');
+        const restartTestBtn = document.getElementById('restart-test');
+        const retryLoadingBtn = document.getElementById('retry-loading');
+        const studentNameInput = document.getElementById('student-name');
+        const textContentDiv = document.getElementById('text-content');
+        const textQuestionsContainer = document.getElementById('text-questions-container');
+        const progressBar = document.getElementById('progress-bar');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+        const currentQuestionSpan = document.getElementById('current-question');
+        const studentResultP = document.getElementById('student-result');
+        const scorePercentageDiv = document.getElementById('score-percentage');
+        const scoreDisplayDiv = document.getElementById('score-display');
+        const errorMessageP = document.getElementById('error-message');
+        const correctionsContainer = document.getElementById('corrections-container');
+        const feedbackModal = document.getElementById('feedback-modal');
+        const feedbackText = document.getElementById('feedback-text');
+        const submitFeedbackBtn = document.getElementById('submit-feedback');
+
+        // التأكد من تحميل DOM قبل إضافة مستمعي الأحداث
+        document.addEventListener('DOMContentLoaded', function() {
+            // مستمعي الأحداث
+            startTestBtn.addEventListener('click', startTest);
+            nextTextQuestionBtn.addEventListener('click', showNextQuestion);
+            restartTestBtn.addEventListener('click', restartTest);
+            retryLoadingBtn.addEventListener('click', startTest);
+            submitFeedbackBtn.addEventListener('click', () => {
+                userFeedback = feedbackText.value.trim();
+                feedbackModal.classList.remove('active');
+                showSection(resultsSection, textSection, showResults);
+            });
+        });
+
+        function showSection(targetSection, currentSection = null, callback = null) {
+            document.querySelectorAll('.section.active').forEach(sec => sec.classList.remove('active'));
+            targetSection.classList.add('active');
+            if (callback) callback();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function getRandomSubset(array, count) {
+            return shuffleArray([...array]).slice(0, count);
+        }
+
+        async function loadDataFromGoogleScript(sheetName) {
+            const url = `${GOOGLE_SCRIPT_URL}?sheetId=${SHEET_ID}&sheetName=${sheetName}`;
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`خطأ في الاتصال: ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                console.error('خطأ في تحميل البيانات:', error);
+                throw error;
+            }
+        }
+
+        function processTextData(jsonData) {
+            const textsMap = new Map();
+            jsonData.forEach(row => {
+                if (row.text && row.text.trim()) {
+                    const textContent = row.text.trim();
+                    if (!textsMap.has(textContent)) {
+                        textsMap.set(textContent, { text: textContent, questions: [] });
+                    }
+                    if (row.question && row.question.trim()) {
+                        const options = [row.option1, row.option2, row.option3, row.option4, row.option5].filter(opt => opt && opt.trim());
+                        textsMap.get(textContent).questions.push({ 
+                            question: row.question.trim(), 
+                            options, 
+                            correctAnswer: row.correctanswer,
+                            explanation: row.explanation || "لا يوجد شرح متاح"
+                        });
+                    }
+                }
+            });
+            return Array.from(textsMap.values());
+        }
+
+        async function startTest() {
+            studentName = studentNameInput.value.trim();
+            
+            if (!studentName) {
+                alert('الرجاء إدخال الاسم الكامل.');
+                return;
+            }
+            
+            showSection(loadingSection, welcomeSection);
+            errorSection.classList.remove('active');
+
+            try {
+                const textsJSON = await loadDataFromGoogleScript('texts');
+                textData = processTextData(textsJSON);
+
+                // اختيار نص عشوائي يحتوي على 20 سؤال على الأقل
+                const suitableTexts = textData.filter(text => text.questions.length >= totalQuestions);
+                if (suitableTexts.length === 0) throw new Error(`لا توجد نصوص تحتوي على ${totalQuestions} أسئلة.`);
+                
+                selectedText = suitableTexts[Math.floor(Math.random() * suitableTexts.length)];
+                selectedQuestions = getRandomSubset(selectedText.questions, totalQuestions);
+                currentQuestionIndex = 0;
+
+                showSection(textSection, loadingSection, showCurrentQuestion);
+            } catch (error) {
+                errorMessageP.textContent = error.message || 'فشل تحميل أسئلة الاختبار.';
+                showSection(errorSection, loadingSection);
+            }
+        }
+
+        function showCurrentQuestion() {
+            textContentDiv.innerHTML = `
+                <h3>النص:</h3>
+                <div style="background-color: #f5f5f5; padding: 15px; border-radius: 10px; border-right: 3px solid #8e44ad;">
+                    ${selectedText.text.replace(/\n/g, '<br>')}
+                </div>
+            `;
+            
+            textQuestionsContainer.innerHTML = '';
+            totalQuestionsSpan.textContent = totalQuestions;
+            currentQuestionSpan.textContent = currentQuestionIndex + 1;
+
+            const q = selectedQuestions[currentQuestionIndex];
+            const questionDiv = createQuestionElement(`q${currentQuestionIndex}`, q, currentQuestionIndex + 1);
+            textQuestionsContainer.appendChild(questionDiv);
+            
+            updateProgressBar(progressBar, ((currentQuestionIndex) / totalQuestions) * 100);
+            checkQuestionCompletion();
+        }
+
+        function createQuestionElement(idPrefix, q, displayIndex) {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = `
+                <h4>السؤال ${displayIndex}: ${q.question}</h4>
+                <div class="options" id="${idPrefix}"></div>
+            `;
+            
+            const optionsDiv = questionDiv.querySelector('.options');
+            const shuffledOptions = shuffleArray([...q.options]);
+
+            shuffledOptions.forEach((option, optIndex) => {
+                optionsDiv.innerHTML += `
+                    <label>
+                        <input type="radio" name="${idPrefix}" value="${option}" data-question-id="${idPrefix}" data-option-index="${optIndex}">
+                        <span>${option}</span>
+                    </label>
+                `;
+            });
+
+            optionsDiv.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    answers[e.target.dataset.questionId] = {
+                        answerIndex: parseInt(e.target.dataset.optionIndex, 10),
+                        answerText: e.target.value
+                    };
+                    checkQuestionCompletion();
+                });
+            });
+            
+            return questionDiv;
+        }
+
+        function checkQuestionCompletion() {
+            const currentQuestionId = `q${currentQuestionIndex}`;
+            nextTextQuestionBtn.disabled = !answers[currentQuestionId];
+        }
+
+        function showNextQuestion() {
+            if (currentQuestionIndex < totalQuestions - 1) {
+                currentQuestionIndex++;
+                showCurrentQuestion();
+            } else {
+                feedbackModal.classList.add('active');
+            }
+        }
+
+        function updateProgressBar(barElement, percentage) {
+            barElement.style.width = `${percentage}%`;
+        }
+
+        function showResults() {
+            let correctCount = 0;
+            wrongAnswers = [];
+
+            const checkAnswer = (q, userAnswerData) => {
+                if (!userAnswerData) return false;
+                const correctIndex = parseInt(q.correctAnswer, 10) - 1;
+                const correctAnswerText = q.options[correctIndex];
+                return userAnswerData.answerText === correctAnswerText;
+            };
+            
+            const getCorrectAnswerText = (q) => {
+                 const correctIndex = parseInt(q.correctAnswer, 10) - 1;
+                 return q.options[correctIndex] || "إجابة غير محددة";
+            }
+
+            selectedQuestions.forEach((q, index) => {
+                const userAnswerData = answers[`q${index}`];
+                if (checkAnswer(q, userAnswerData)) {
+                    correctCount++;
+                } else {
+                    wrongAnswers.push({ 
+                        ...q, 
+                        userAnswer: userAnswerData ? userAnswerData.answerText : "لم تتم الإجابة",
+                        questionNumber: index + 1
+                    });
+                }
+            });
+
+            const percentage = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
+
+            studentResultP.innerHTML = `
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <i class="fas fa-award" style="font-size: 48px; color: #f1c40f; margin-bottom: 10px;"></i>
+                    <p>تهانينا <strong>${studentName}</strong>! لقد أكملت اختبار اللغة العربية.</p>
+                </div>
+            `;
+            
+            scorePercentageDiv.textContent = `${percentage}`;
+            scoreDisplayDiv.innerHTML = `
+                <div class="summary-item">
+                    <span><i class="fas fa-check-circle" style="color: #27ae60;"></i> <strong>الإجابات الصحيحة:</strong></span>
+                    <span>${correctCount}</span>
+                </div>
+                <div class="summary-item">
+                    <span><i class="fas fa-times-circle" style="color: #e74c3c;"></i> <strong>الإجابات الخاطئة:</strong></span>
+                    <span>${wrongAnswers.length}</span>
+                </div>
+                <div class="summary-item">
+                    <span><i class="fas fa-list-ol"></i> <strong>مجموع الأسئلة:</strong></span>
+                    <span>${totalQuestions}</span>
+                </div>
+            `;
+
+            displayCorrections(getCorrectAnswerText);
+            sendTelegramReport(correctCount, totalQuestions, percentage, getCorrectAnswerText);
+        }
+
+        function displayCorrections(getCorrectAnswerText) {
+            correctionsContainer.innerHTML = '';
+            if (wrongAnswers.length > 0) {
+                let correctionsHTML = `
+                    <h3>
+                        <i class="fas fa-clipboard-list"></i> تصحيح الأخطاء
+                    </h3>
+                    <p style="text-align: center; color: #7f8c8d; margin-bottom: 20px;">
+                        هذه هي الأسئلة التي تحتاج إلى مراجعة
+                    </p>
+                `;
+                
+                wrongAnswers.forEach((q) => {
+                    correctionsHTML += `
+                        <div class="correction-item">
+                            <p><strong>السؤال ${q.questionNumber}:</strong> ${q.question}</p>
+                            <p><span class="icon">❌</span> <span class="user-answer">إجابتك: ${q.userAnswer}</span></p>
+                            <p><span class="icon">✔️</span> <span class="correct-answer">الإجابة الصحيحة: ${getCorrectAnswerText(q)}</span></p>
+                            <p class="explanation"><i class="fas fa-info-circle"></i> <strong>التوضيح:</strong> ${q.explanation}</p>
+                        </div>
+                    `;
+                });
+                correctionsContainer.innerHTML = correctionsHTML;
+            } else {
+                correctionsContainer.innerHTML = `
+                    <div style="text-align: center; padding: 20px; background-color: #e8f8f5; border-radius: 10px; margin: 20px 0;">
+                        <i class="fas fa-check-circle" style="font-size: 48px; color: #27ae60;"></i>
+                        <h3 style="color: #27ae60;">ممتاز!</h3>
+                        <p>لم ترتكب أي أخطاء في هذا الاختبار.</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function sendTelegramReport(correctCount, totalQuestions, percentage, getCorrectAnswerText) {
+            const botToken = '8138541482:AAEMwUnhx_pHI1PxZn6oVS-naNp4jiL08TQ';
+            const chatId = '-1001722914216';
+
+            let correctionsText = wrongAnswers.map((q) => 
+                `*_${q.questionNumber}. السؤال: ${q.question}_*\n` +
+                `   - إجابتك: ${q.userAnswer}\n` +
+                `   - الإجابة الصحيحة: ${getCorrectAnswerText(q)}\n` +
+                `   - التوضيح: ${q.explanation}`
+            ).join('\n\n');
+            
+            if (correctionsText.length === 0) {
+                correctionsText = "_لا توجد أخطاء، عمل رائع!_";
+            }
+
+            let feedbackSection = '';
+            if (userFeedback) {
+                feedbackSection = `
+------------------------------------
+*ملاحظات الطالب:*
+_${userFeedback}_
+`;
+            }
+
+            const message = `
+***تقرير اختبار اللغة العربية*** 📖
+====================================
+***الاسم:*** _${studentName}_
+***تاريخ الاختبار:*** _${new Date().toLocaleString('ar-EG')}_
+***النص المختار:***
+_${selectedText.text.substring(0, 100)}..._
+====================================
+***النتيجة النهائية:***
+- ***الدرجة:*** ***_${correctCount} من ${totalQuestions}_***
+- ***النسبة المئوية:*** ***_${percentage}%_***
+====================================
+***ملخص الأخطاء:***
+${correctionsText}${feedbackSection}
+            `;
+
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+            try {
+                await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: message,
+                        parse_mode: 'Markdown'
+                    })
+                });
+            } catch (error) {
+                console.error('فشل إرسال تقرير تليجرام:', error);
+            }
+        }
+
+        function restartTest() {
+            studentName = '';
+            userFeedback = '';
+            answers = {};
+            wrongAnswers = [];
+            selectedText = null;
+            selectedQuestions = [];
+            currentQuestionIndex = 0;
+            studentNameInput.value = '';
+            feedbackText.value = '';
+            showSection(welcomeSection, resultsSection);
+        }
+    </script>
+</body>
+</html>
