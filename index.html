@@ -18,7 +18,9 @@
             --border-color: #e0e0e0;
             --error-color: #e74c3c;
             --success-color: #27ae60;
+            --warning-color: #f39c12;
             --hover-light: #f5eef8;
+            --timer-color: #e74c3c;
             --arabic-pattern: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%238e44ad" fill-opacity="0.05" d="M50 0c13.8 0 25 11.2 25 25S63.8 50 50 50 25 38.8 25 25 36.2 0 50 0zm0 10c-8.3 0-15 6.7-15 15s6.7 15 15 15 15-6.7 15-15-6.7-15-15-15zm0 25c5.5 0 10 4.5 10 10s-4.5 10-10 10-10-4.5-10-10 4.5-10 10-10z"/></svg>');
         }
 
@@ -84,7 +86,7 @@
         }
 
         h1 { 
-            font-size: 32px; 
+            font-size: 28px; 
             color: #8e44ad;
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
             position: relative;
@@ -104,12 +106,12 @@
         }
 
         h2 { 
-            font-size: 24px; 
+            font-size: 22px; 
             color: #3498db;
         }
 
-        h3 { font-size: 20px; }
-        h4 { font-size: 18px; }
+        h3 { font-size: 18px; }
+        h4 { font-size: 16px; }
 
         p {
             margin-bottom: 15px;
@@ -124,7 +126,7 @@
             padding: 14px 25px;
             border-radius: 10px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 16px;
             font-family: 'Tajawal', sans-serif;
             transition: all 0.3s ease;
             box-shadow: 0 4px 8px rgba(142, 68, 173, 0.3);
@@ -247,6 +249,8 @@
             transform: translateY(-50%);
             width: 20px;
             height: 20px;
+            opacity: 0;
+            cursor: pointer;
         }
 
         .options label::after {
@@ -274,8 +278,17 @@
             border-radius: 50%;
         }
 
+        .progress-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
         .progress {
-            margin-bottom: 20px;
+            flex-grow: 1;
             height: 12px;
             background-color: #ecf0f1;
             border-radius: 6px;
@@ -319,8 +332,42 @@
             font-weight: 500;
         }
 
+        .timer-container {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 8px 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .timer {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--timer-color);
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .timer-icon {
+            margin-left: 8px;
+            color: var(--timer-color);
+        }
+
+        .timer-warning {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
         .result-score {
-            font-size: 56px;
+            font-size: 48px;
             font-weight: bold;
             color: var(--success-color);
             text-align: center;
@@ -351,11 +398,16 @@
             border-radius: 10px;
             border-right: 4px solid var(--primary-color);
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .correction-item { 
             border-right-color: var(--error-color); 
             background-color: #fff9f9;
+            flex-direction: column;
+            align-items: flex-start;
         }
         
         .correction-item .user-answer { 
@@ -382,6 +434,7 @@
             padding-right: 15px;
             border-right: 2px solid #eee;
             margin-right: 10px;
+            display: inline-block;
         }
         
         .correction-item .icon { 
@@ -393,7 +446,7 @@
             text-align: center;
             margin: 20px 0;
             color: #8e44ad;
-            font-size: 24px;
+            font-size: 20px;
             line-height: 1.5;
         }
 
@@ -445,7 +498,7 @@
         #loading-section p {
             text-align: center;
             color: #7f8c8d;
-            font-size: 18px;
+            font-size: 16px;
             margin-top: 20px;
         }
 
@@ -511,15 +564,50 @@
             margin-bottom: 20px;
         }
 
+        /* تحسينات للأجهزة الصغيرة */
         @media (max-width: 480px) {
             body { padding: 10px; }
-            .section { padding: 18px; }
-            h1 { font-size: 26px; }
-            h2 { font-size: 22px; }
-            button { padding: 12px 18px; font-size: 16px; }
-            .result-score { font-size: 48px; }
+            .section { padding: 15px; }
+            h1 { font-size: 24px; }
+            h2 { font-size: 20px; }
+            h3 { font-size: 16px; }
+            h4 { font-size: 15px; }
+            button { padding: 12px 15px; font-size: 15px; }
+            .result-score { font-size: 40px; }
             .question { padding: 15px; }
-            .options label { padding: 12px; }
+            .options label { padding: 12px 12px 12px 35px; }
+            .timer { font-size: 14px; min-width: 40px; }
+            .timer-icon { font-size: 14px; }
+            .arabic-decoration { font-size: 18px; }
+            
+            .options input[type="radio"] {
+                right: 10px;
+                width: 16px;
+                height: 16px;
+            }
+            
+            .options label::after {
+                right: 10px;
+                width: 16px;
+                height: 16px;
+            }
+            
+            .options input[type="radio"]:checked ~ span::before {
+                right: 14px;
+                width: 10px;
+                height: 10px;
+            }
+        }
+
+        /* تحسينات للأجهزة الأصغر */
+        @media (max-width: 360px) {
+            h1 { font-size: 22px; }
+            h2 { font-size: 18px; }
+            button { padding: 10px 12px; font-size: 14px; }
+            .result-score { font-size: 36px; }
+            .question { padding: 12px; }
+            .options label { padding: 10px 10px 10px 30px; }
+            .timer { font-size: 13px; min-width: 35px; }
         }
 
         /* زخارف عربية */
@@ -532,7 +620,7 @@
         .pattern-1 {
             top: 20px;
             left: 20px;
-            font-size: 120px;
+            font-size: 100px;
             transform: rotate(15deg);
             color: #8e44ad;
         }
@@ -540,7 +628,7 @@
         .pattern-2 {
             bottom: 20px;
             right: 20px;
-            font-size: 100px;
+            font-size: 80px;
             transform: rotate(-10deg);
             color: #3498db;
         }
@@ -562,7 +650,7 @@
             <i class="fas fa-book-open"></i>
         </button>
         <div class="fixed-message">
-            <i class="fas fa-bullhorn"></i> انضم إلى قناة التلغرام للحصول على النتائج: t.me/bakalorea2026
+            <i class="fas fa-bullhorn"></i>نتمنى لكم التوفيق والنجاح
         </div>
     </div>
 
@@ -589,8 +677,14 @@
 
     <!-- قسم النص والأسئلة -->
     <div id="text-section" class="section">
-        <div class="progress">
-            <div class="progress-bar" id="progress-bar"></div>
+        <div class="progress-container">
+            <div class="progress">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="timer-container">
+                <i class="fas fa-clock timer-icon"></i>
+                <div class="timer" id="question-timer">30</div>
+            </div>
         </div>
         <div class="tracking" id="tracking">
             السؤال <span id="current-question">1</span> من <span id="total-questions">20</span>
@@ -642,6 +736,8 @@
         let currentQuestionIndex = 0;
         let wrongAnswers = [];
         let totalQuestions = 20;
+        let timerInterval;
+        let timeLeft = 30;
 
         // إعدادات جوجل شيتس
         const SHEET_ID = '1QeDqPQTvpmYcnngNIa3dj29gw48pzVo5SkjNmNCf7j0';
@@ -671,6 +767,7 @@
         const feedbackModal = document.getElementById('feedback-modal');
         const feedbackText = document.getElementById('feedback-text');
         const submitFeedbackBtn = document.getElementById('submit-feedback');
+        const questionTimer = document.getElementById('question-timer');
 
         // التأكد من تحميل DOM قبل إضافة مستمعي الأحداث
         document.addEventListener('DOMContentLoaded', function() {
@@ -739,6 +836,27 @@
             return Array.from(textsMap.values());
         }
 
+        function startTimer() {
+            clearInterval(timerInterval);
+            timeLeft = 30;
+            questionTimer.textContent = timeLeft;
+            questionTimer.classList.remove('timer-warning');
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                questionTimer.textContent = timeLeft;
+                
+                if (timeLeft <= 10) {
+                    questionTimer.classList.add('timer-warning');
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    showNextQuestion();
+                }
+            }, 1000);
+        }
+
         async function startTest() {
             studentName = studentNameInput.value.trim();
             
@@ -787,6 +905,7 @@
             
             updateProgressBar(progressBar, ((currentQuestionIndex) / totalQuestions) * 100);
             checkQuestionCompletion();
+            startTimer();
         }
 
         function createQuestionElement(idPrefix, q, displayIndex) {
@@ -828,6 +947,8 @@
         }
 
         function showNextQuestion() {
+            clearInterval(timerInterval);
+            
             if (currentQuestionIndex < totalQuestions - 1) {
                 currentQuestionIndex++;
                 showCurrentQuestion();
@@ -998,6 +1119,7 @@ ${correctionsText}${feedbackSection}
             currentQuestionIndex = 0;
             studentNameInput.value = '';
             feedbackText.value = '';
+            clearInterval(timerInterval);
             showSection(welcomeSection, resultsSection);
         }
     </script>
